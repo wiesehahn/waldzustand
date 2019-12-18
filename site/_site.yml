@@ -1,0 +1,20 @@
+name: "Waldsterben 2.0"
+output_dir: "../docs"
+navbar:
+  title: "Waldsterben 2.0"
+  left:
+    - text: "Info"
+      href: index.html
+output: 
+  html_document:
+    highlight: kate
+    fig_caption: yes
+    theme: paper
+    code_folding: hide
+    toc: true
+    toc_float: true
+    collapsed: false 
+    number_sections: true
+    css: style.css
+    includes:
+      after_body: footer.html

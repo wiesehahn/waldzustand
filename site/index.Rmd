@@ -1,0 +1,129 @@
+---
+output: html_document
+---
+
+# Forest disturbance mapping using satellite imagery in the cloud {-}
+
+## Methodology {-} 
+
+### Study region {-}
+
+The state of North Rhine-Westphalia was chosen as the test region for our study due to two reasons. 
+
+- First, there have been many events in the past years which damaged the forests in large areas. The last two major storms which resulted in huge windthrow damages have been Kyrill on January 18th 2007 and Frederieke on January 18th 2018. Furthermore, very dry summers followed in 2018 and 2019.
+
+- Second, the data policy in the state of North Rhine-Westphalia is quite open and allows to use a variety of geodata free of charge. 
+
+### Algorithm {-}
+
+#### LandTrendr {-}
+
+LandTrendr algorithm was used to detect disturbances. The algorithm uses Landsat time series to fit a trend line and detect anomalies indicating forest disturbances. An API to the algorithm is implemented in Google Earth Engine, which was used in this study [LandTrendr Google Earth Engine Guide](https://emapr.github.io/LT-GEE/).
+
+The algorithm requires a couple of input variables which have to be defined: 
+
+##### variables to create image collection {-}
+
+```{javascript}
+var startYear = 1985;
+var endYear = 2019;
+var startDay = '06-01';
+var endDay = '09-20';
+var aoi = roi;
+var index = 'NBR';
+var maskThese = ['cloud', 'shadow', 'snow', 'water'];
+```
+
+They are set based on present knowledge for the study region and individual preferences for the study:
+
+- *startYear* and *endYear* were set to 1985 and 2019 to build the trendline on as many values as possible to make it more stable.
+
+- *startDay* for builing the annual image composites is June 1 and *endDay* is September 20 as all tree species are expected to have a fully developed crown cover during this period.
+
+- As *index* for disturbance detection the *Normalized Burn Ratio (NBR)* was used because it performed well in other studies and also made a better impression than for example the NDVI in preliminary tests. A possible explanation could be that it uses longer wavelengths which are less sensible to atmospheric conditions.
+
+
+##### variables to create LandTrendr model {-}
+
+```{javascript}
+var runParams = { 
+  maxSegments:            5,
+  spikeThreshold:         0.9,
+  vertexCountOvershoot:   3,
+  preventOneYearRecovery: true,
+  recoveryThreshold:      0.25,
+  pvalThreshold:          0.1,
+  bestModelProportion:    0.75,
+  minObservationsNeeded:  6
+};
+```
+
+The variables to fit the LandTrendr model had to be chosen based on the results by other studies [Kennedy et al.](https://andrewsforest.oregonstate.edu/sites/default/files/lter/pubs/pdf/pub4696.pdf) and by trial and error. 
+
+Two different scenarios were computed to compare the effects. The first scenario should avoid false positives and capture only changes with high certainty. The second scenario was set up to capture more changes. th final parameters are a mix between these scenarios.
+
+**1 - avoid false positive**
+```{javascript}
+var runParams = { 
+  maxSegments:            4, 
+  spikeThreshold:         0.9,
+  vertexCountOvershoot:   3,
+  preventOneYearRecovery: true,
+  recoveryThreshold:      0.25,
+  pvalThreshold:          0.05, 
+  bestModelProportion:    0.75,
+  minObservationsNeeded:  6
+};
+```
+
+**2 - max capture**
+```{javascript}
+var runParams = { 
+  maxSegments:            6
+  spikeThreshold:         0.9,
+  vertexCountOvershoot:   3,
+  preventOneYearRecovery: true,
+  recoveryThreshold:      0.5
+  pvalThreshold:          0.1,
+  bestModelProportion:    0.75,
+  minObservationsNeeded:  6
+};
+```
+
+
+
+##### variables to detect anomalies {-}
+
+```{javascript}
+var changeParams = {
+  delta:  'loss',
+  sort:   'greatest',
+  year:   {checked:true, start:2009, end:2019},
+  mag:    {checked:true, value:300,  operator:'>'},
+  dur:    {checked:true, value:4,    operator:'<'},
+  preval: {checked:true, value:300,  operator:'>'},
+  mmu:    {checked:true, value:11},
+};
+```
+
+The variables to detect changes in teh LandTrendr model were chosen based on the results by other studies and by individual definitions in this study.
+
+- The observed period are all years between 2009 and 2019. 
+
+- A change was detected for the greatest change in this period.
+
+- A minimum Mapping unit of 11 pixels (>9900 m²) was applied
+
+
+
+#### Direct comparison {-}
+
+To do a direct image based comparison of the Normalized burn Ratio in the entire region, we calculated the Normalized Burn Ratio for the summer period of 2017, 2018 and 2019 based on Sentinel 2 images.
+
+```{r, echo=FALSE, out.width = "100%"}
+knitr::include_graphics("https://github.com/wiesehahn/waldsterben2.0/blob/master/raw_data/img/image_slide_17_19.jpg?raw=true")
+```
+[see in GEE](https://code.earthengine.google.com/e6d9a2ce5decda49ab96b50f1f2e1137)
+
+
+### Validation

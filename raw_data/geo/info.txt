@@ -1,0 +1,5 @@
+dop_nrw_2019_coverage created based on https://www.tim-online.nrw.de/tim-online2/uebersicht.html?thema=dop 
+
+clip forest to dop extent: processing.run("native:clip", {'INPUT':'.../basis-dlm_wald_nrw/veg02_f.shp','OVERLAY':'.../dop_nrw_2019_coverage.gpkg|layername=dop_nrw_2019_coverage','OUTPUT':'memory:'})
+
+create random points inside forest: processing.run("qgis:randompointsinlayerbounds", {'INPUT':'MultiPolygon?crs=EPSG:25832&field=LAND:string(3,0)&field=MODELLART:string(30,0)&field=OBJART:string(5,0)&field=OBJART_TXT:string(50,0)&field=OBJID:string(16,0)&field=HDU_X:integer(4,0)&field=FDV_X:integer(4,0)&field=BEGINN:string(20,0)&field=ENDE:string(20,0)&field=BEZ:string(60,0)&field=NAM:string(180,0)&field=VEG:string(4,0)&uid={b1bf3a7b-7df3-493b-868f-5b197475cd09}','POINTS_NUMBER':2000,'MIN_DISTANCE':100,'OUTPUT':'memory:'})

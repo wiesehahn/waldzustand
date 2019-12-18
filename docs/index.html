@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #ffffff; color: #1f1c1b; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #ffffff; color: #a0a0a0; border-right: 1px solid #a0a0a0; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #1f1c1b; background-color: #ffffff; }
+code > span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code > span.dt { color: #0057ae; } /* DataType */
+code > span.dv { color: #b08000; } /* DecVal */
+code > span.bn { color: #b08000; } /* BaseN */
+code > span.fl { color: #b08000; } /* Float */
+code > span.cn { color: #aa5500; } /* Constant */
+code > span.ch { color: #924c9d; } /* Char */
+code > span.sc { color: #3daee9; } /* SpecialChar */
+code > span.st { color: #bf0303; } /* String */
+code > span.vs { color: #bf0303; } /* VerbatimString */
+code > span.ss { color: #ff5500; } /* SpecialString */
+code > span.im { color: #ff5500; } /* Import */
+code > span.co { color: #898887; } /* Comment */
+code > span.do { color: #607880; } /* Documentation */
+code > span.an { color: #ca60ca; } /* Annotation */
+code > span.cv { color: #0095ff; } /* CommentVar */
+code > span.ot { color: #006e28; } /* Other */
+code > span.fu { color: #644a9b; } /* Function */
+code > span.va { color: #0057ae; } /* Variable */
+code > span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #1f1c1b; } /* Operator */
+code > span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code > span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code > span.pp { color: #006e28; } /* Preprocessor */
+code > span.at { color: #0057ae; } /* Attribute */
+code > span.re { color: #0057ae; } /* RegionMarker */
+code > span.in { color: #b08000; } /* Information */
+code > span.wa { color: #bf0303; } /* Warning */
+code > span.al { color: #bf0303; font-weight: bold; } /* Alert */
+code > span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code > span. { color: #1f1c1b; } /* Normal */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Waldsterben 2.0</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Info</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<div id="forest-disturbance-mapping-using-satellite-imagery-in-the-cloud" class="section level1 unnumbered">
+<h1>Forest disturbance mapping using satellite imagery in the cloud</h1>
+<div id="methodology" class="section level2 unnumbered">
+<h2>Methodology</h2>
+<div id="study-region" class="section level3 unnumbered">
+<h3>Study region</h3>
+<p>The state of North Rhine-Westphalia was chosen as the test region for our study due to two reasons.</p>
+<ul>
+<li><p>First, there have been many events in the past years which damaged the forests in large areas. The last two major storms which resulted in huge windthrow damages have been Kyrill on January 18th 2007 and Frederieke on January 18th 2018. Furthermore, very dry summers followed in 2018 and 2019.</p></li>
+<li><p>Second, the data policy in the state of North Rhine-Westphalia is quite open and allows to use a variety of geodata free of charge.</p></li>
+</ul>
+</div>
+<div id="algorithm" class="section level3 unnumbered">
+<h3>Algorithm</h3>
+<div id="landtrendr" class="section level4 unnumbered">
+<h4>LandTrendr</h4>
+<p>LandTrendr algorithm was used to detect disturbances. The algorithm uses Landsat time series to fit a trend line and detect anomalies indicating forest disturbances. An API to the algorithm is implemented in Google Earth Engine, which was used in this study <a href="https://emapr.github.io/LT-GEE/">LandTrendr Google Earth Engine Guide</a>.</p>
+<p>The algorithm requires a couple of input variables which have to be defined:</p>
+<div id="variables-to-create-image-collection" class="section level5 unnumbered">
+<h5>variables to create image collection</h5>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> startYear <span class="op">=</span> <span class="dv">1985</span><span class="op">;</span>
+<span class="kw">var</span> endYear <span class="op">=</span> <span class="dv">2019</span><span class="op">;</span>
+<span class="kw">var</span> startDay <span class="op">=</span> <span class="st">&#39;06-01&#39;</span><span class="op">;</span>
+<span class="kw">var</span> endDay <span class="op">=</span> <span class="st">&#39;09-20&#39;</span><span class="op">;</span>
+<span class="kw">var</span> aoi <span class="op">=</span> roi<span class="op">;</span>
+<span class="kw">var</span> index <span class="op">=</span> <span class="st">&#39;NBR&#39;</span><span class="op">;</span>
+<span class="kw">var</span> maskThese <span class="op">=</span> [<span class="st">&#39;cloud&#39;</span><span class="op">,</span> <span class="st">&#39;shadow&#39;</span><span class="op">,</span> <span class="st">&#39;snow&#39;</span><span class="op">,</span> <span class="st">&#39;water&#39;</span>]<span class="op">;</span></code></pre></div>
+<p>They are set based on present knowledge for the study region and individual preferences for the study:</p>
+<ul>
+<li><p><em>startYear</em> and <em>endYear</em> were set to 1985 and 2019 to build the trendline on as many values as possible to make it more stable.</p></li>
+<li><p><em>startDay</em> for builing the annual image composites is June 1 and <em>endDay</em> is September 20 as all tree species are expected to have a fully developed crown cover during this period.</p></li>
+<li><p>As <em>index</em> for disturbance detection the <em>Normalized Burn Ratio (NBR)</em> was used because it performed well in other studies and also made a better impression than for example the NDVI in preliminary tests. A possible explanation could be that it uses longer wavelengths which are less sensible to atmospheric conditions.</p></li>
+</ul>
+</div>
+<div id="variables-to-create-landtrendr-model" class="section level5 unnumbered">
+<h5>variables to create LandTrendr model</h5>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> runParams <span class="op">=</span> <span class="op">{</span> 
+  <span class="dt">maxSegments</span><span class="op">:</span>            <span class="dv">5</span><span class="op">,</span>
+  <span class="dt">spikeThreshold</span><span class="op">:</span>         <span class="fl">0.9</span><span class="op">,</span>
+  <span class="dt">vertexCountOvershoot</span><span class="op">:</span>   <span class="dv">3</span><span class="op">,</span>
+  <span class="dt">preventOneYearRecovery</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+  <span class="dt">recoveryThreshold</span><span class="op">:</span>      <span class="fl">0.25</span><span class="op">,</span>
+  <span class="dt">pvalThreshold</span><span class="op">:</span>          <span class="fl">0.1</span><span class="op">,</span>
+  <span class="dt">bestModelProportion</span><span class="op">:</span>    <span class="fl">0.75</span><span class="op">,</span>
+  <span class="dt">minObservationsNeeded</span><span class="op">:</span>  <span class="dv">6</span>
+<span class="op">};</span></code></pre></div>
+<p>The variables to fit the LandTrendr model had to be chosen based on the results by other studies <a href="https://andrewsforest.oregonstate.edu/sites/default/files/lter/pubs/pdf/pub4696.pdf">Kennedy et al.</a> and by trial and error.</p>
+<p>Two different scenarios were computed to compare the effects. The first scenario should avoid false positives and capture only changes with high certainty. The second scenario was set up to capture more changes. th final parameters are a mix between these scenarios.</p>
+<p><strong>1 - avoid false positive</strong></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> runParams <span class="op">=</span> <span class="op">{</span> 
+  <span class="dt">maxSegments</span><span class="op">:</span>            <span class="dv">4</span><span class="op">,</span> 
+  <span class="dt">spikeThreshold</span><span class="op">:</span>         <span class="fl">0.9</span><span class="op">,</span>
+  <span class="dt">vertexCountOvershoot</span><span class="op">:</span>   <span class="dv">3</span><span class="op">,</span>
+  <span class="dt">preventOneYearRecovery</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+  <span class="dt">recoveryThreshold</span><span class="op">:</span>      <span class="fl">0.25</span><span class="op">,</span>
+  <span class="dt">pvalThreshold</span><span class="op">:</span>          <span class="fl">0.05</span><span class="op">,</span> 
+  <span class="dt">bestModelProportion</span><span class="op">:</span>    <span class="fl">0.75</span><span class="op">,</span>
+  <span class="dt">minObservationsNeeded</span><span class="op">:</span>  <span class="dv">6</span>
+<span class="op">};</span></code></pre></div>
+<p><strong>2 - max capture</strong></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> runParams <span class="op">=</span> <span class="op">{</span> 
+  <span class="dt">maxSegments</span><span class="op">:</span>            <span class="dv">6</span>
+  <span class="dt">spikeThreshold</span><span class="op">:</span>         <span class="fl">0.9</span><span class="op">,</span>
+  <span class="dt">vertexCountOvershoot</span><span class="op">:</span>   <span class="dv">3</span><span class="op">,</span>
+  <span class="dt">preventOneYearRecovery</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+  <span class="dt">recoveryThreshold</span><span class="op">:</span>      <span class="fl">0.5</span>
+  <span class="dt">pvalThreshold</span><span class="op">:</span>          <span class="fl">0.1</span><span class="op">,</span>
+  <span class="dt">bestModelProportion</span><span class="op">:</span>    <span class="fl">0.75</span><span class="op">,</span>
+  <span class="dt">minObservationsNeeded</span><span class="op">:</span>  <span class="dv">6</span>
+<span class="op">};</span></code></pre></div>
+</div>
+<div id="variables-to-detect-anomalies" class="section level5 unnumbered">
+<h5>variables to detect anomalies</h5>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> changeParams <span class="op">=</span> <span class="op">{</span>
+  <span class="dt">delta</span><span class="op">:</span>  <span class="st">&#39;loss&#39;</span><span class="op">,</span>
+  <span class="dt">sort</span><span class="op">:</span>   <span class="st">&#39;greatest&#39;</span><span class="op">,</span>
+  <span class="dt">year</span><span class="op">:</span>   <span class="op">{</span><span class="dt">checked</span><span class="op">:</span><span class="kw">true</span><span class="op">,</span> <span class="dt">start</span><span class="op">:</span><span class="dv">2009</span><span class="op">,</span> <span class="dt">end</span><span class="op">:</span><span class="dv">2019</span><span class="op">},</span>
+  <span class="dt">mag</span><span class="op">:</span>    <span class="op">{</span><span class="dt">checked</span><span class="op">:</span><span class="kw">true</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="dv">300</span><span class="op">,</span>  <span class="dt">operator</span><span class="op">:</span><span class="st">&#39;&gt;&#39;</span><span class="op">},</span>
+  <span class="dt">dur</span><span class="op">:</span>    <span class="op">{</span><span class="dt">checked</span><span class="op">:</span><span class="kw">true</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="dv">4</span><span class="op">,</span>    <span class="dt">operator</span><span class="op">:</span><span class="st">&#39;&lt;&#39;</span><span class="op">},</span>
+  <span class="dt">preval</span><span class="op">:</span> <span class="op">{</span><span class="dt">checked</span><span class="op">:</span><span class="kw">true</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="dv">300</span><span class="op">,</span>  <span class="dt">operator</span><span class="op">:</span><span class="st">&#39;&gt;&#39;</span><span class="op">},</span>
+  <span class="dt">mmu</span><span class="op">:</span>    <span class="op">{</span><span class="dt">checked</span><span class="op">:</span><span class="kw">true</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="dv">11</span><span class="op">},</span>
+<span class="op">};</span></code></pre></div>
+<p>The variables to detect changes in teh LandTrendr model were chosen based on the results by other studies and by individual definitions in this study.</p>
+<ul>
+<li><p>The observed period are all years between 2009 and 2019.</p></li>
+<li><p>A change was detected for the greatest change in this period.</p></li>
+<li><p>A minimum Mapping unit of 11 pixels (&gt;9900 mÂ²) was applied</p></li>
+</ul>
+</div>
+</div>
+<div id="direct-comparison" class="section level4 unnumbered">
+<h4>Direct comparison</h4>
+<p>To do a direct image based comparison of the Normalized burn Ratio in the entire region, we calculated the Normalized Burn Ratio for the summer period of 2017, 2018 and 2019 based on Sentinel 2 images.</p>
+<p><img src="https://github.com/wiesehahn/waldsterben2.0/blob/master/raw_data/img/image_slide_17_19.jpg?raw=true" width="100%" /> <a href="https://code.earthengine.google.com/e6d9a2ce5decda49ab96b50f1f2e1137">see in GEE</a></p>
+</div>
+</div>
+<div id="validation" class="section level3">
+<h3><span class="header-section-number">0.0.1</span> Validation</h3>
+</div>
+</div>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>A work by Jens Wiesehahn</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+	<a href="mailto:wiesehahn.jens@gmail.com" class="fa fa-envelope"></a>
+    <a href="https://github.com/wiesehahn/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
